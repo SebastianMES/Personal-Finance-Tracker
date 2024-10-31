@@ -37,7 +37,7 @@ def main():
         if request == "0":
             CSV_handling.load_transaction()
         elif request == "1":
-            data_anlaysis
+            data_management.view_all_transactions()
         elif request == "2":
             data_management.view_transactions_by_date_range()
         elif request == "3":

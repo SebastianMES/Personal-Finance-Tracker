@@ -4,16 +4,6 @@ import pandas as pd
 from datetime import datetime
 import Globals
 
-# Load data from the CSV file
-file_path = 'sampledata.csv'  # or provide the full path if it’s in a different directory
-data = pd.read_csv(file_path)
-
-# Display the data to confirm it loaded correctly
-print(data)
-
-
-from numpy.f2py.crackfortran import true_intent_list
-
 #global valuable
 # define dataframe with required columns if needed
 Globals.transaction_df = pd.DataFrame(columns=['Date', 'Category', 'Description', 'Amount', 'Type'])
@@ -257,3 +247,5 @@ def edit_transaction(index, date=None, category=None, description=None, amount=N
 
 def delete_transaction():
 
+def view_all_transactions():
+    return print(Globals.transaction_df)
