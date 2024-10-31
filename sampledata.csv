@@ -1,15 +1,46 @@
 Date,Category,Description,Amount,Type
-2024-10-01,Food,Grocery,50.75,Expense
-2024-10-02,Rent,Monthly Rent,1200.0,Expense
-2024-10-02,Utilities,Electricity Bill,60.0,Expense
-2024-10-03,Food,Dinner,30.0,Expense
-2024-10-04,Transport,Bus Ticket,2.75,Expense
-2024-10-05,Food,Breakfast,15.0,Expense
-2024-10-06,Income,Salary,2000.0,Income
-2024-10-10,Income,Freelance Work,500.0,Income
-2024-10-12,Utilities,Water Bill,40.0,Expense
-2024-10-15,Food,Lunch,25.0,Expense
-2024-10-18,Transport,Taxi,25.0,Expense
-2024-10-20,Income,Investment Return,200.0,Income
-2024-10-25,Food,Groceries,80.0,Expense
-2024-10-28,Rent,Monthly Rent,1200.0,Expense
+01/10/2024,Food,Grocery,50.75,Expense
+02/10/2024,Rent,Monthly Rent,1200,Expense
+02/10/2024,Utilities,Electricity Bill,60,Expense
+03/10/2024,Food,Dinner,30,Expense
+04/10/2024,Transport,Bus Ticket,2.75,Expense
+05/10/2024,Food,Breakfast,15,Expense
+06/10/2024,Income,Salary,2000,Income
+10/10/2024,Income,Freelance Work,500,Income
+12/10/2024,Utilities,Water Bill,40,Expense
+15/10/2024,Food,Lunch,25,Expense
+18/10/2024,Transport,Taxi,25,Expense
+20/10/2024,Income,Investment Return,200,Income
+25/10/2024,Food,Groceries,80,Expense
+28/10/2024,Rent,Monthly Rent,1200,Expense
+29/10/2024,Food,Grocery,50.75,Expense
+30/10/2024,Rent,Monthly Rent,1200,Expense
+31/10/2024,Utilities,Electricity Bill,60,Expense
+01/11/2024,Food,Dinner,30,Expense
+02/11/2024,Transport,Bus Ticket,2.75,Expense
+03/11/2024,Food,Breakfast,15,Expense
+04/11/2024,Income,Salary,2000,Income
+05/11/2024,Income,Freelance Work,500,Income
+06/11/2024,Utilities,Water Bill,40,Expense
+07/11/2024,Food,Lunch,25,Expense
+08/11/2024,Transport,Taxi,25,Expense
+09/11/2024,Income,Investment Return,200,Income
+10/11/2024,Food,Groceries,80,Expense
+11/11/2024,Rent,Monthly Rent,1200,Expense
+12/11/2024,Food,Grocery,50.75,Expense
+13/11/2024,Rent,Monthly Rent,1200,Expense
+14/11/2024,Utilities,Electricity Bill,60,Expense
+15/11/2024,Food,Dinner,30,Expense
+16/11/2024,Transport,Bus Ticket,2.75,Expense
+17/11/2024,Food,Breakfast,15,Expense
+18/11/2024,Income,Salary,2000,Income
+19/11/2024,Income,Freelance Work,500,Income
+20/11/2024,Utilities,Water Bill,40,Expense
+21/11/2024,Food,Lunch,25,Expense
+22/11/2024,Transport,Taxi,25,Expense
+23/11/2024,Income,Investment Return,200,Income
+24/11/2024,Food,Groceries,80,Expense
+25/11/2024,Rent,Monthly Rent,1200,Expense
+26/11/2024,Food,Grocery,50.75,Expense
+27/11/2024,Rent,Monthly Rent,1200,Expense
+28/11/2024,Utilities,Electricity Bill,60,Expense
