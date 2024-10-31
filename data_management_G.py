@@ -2,14 +2,11 @@
 
 import pandas as pd
 from datetime import datetime
-import Globals
-
 from numpy.f2py.crackfortran import true_intent_list
 
 #global valuable
-# define dataframe with required columns if needed
-Globals.transaction_df = pd.DataFrame(columns=['Date', 'Category', 'Description', 'Amount', 'Type'])
-# transaction_df = pd.DataFrame(columns=['Date','Category', 'Description', 'Amount','Type'])
+# check for required columns
+transaction_df = pd.DataFrame(columns=['Date','Category', 'Description', 'Amount','Type'])
 today_date = datetime.today().date()
 changes_unsaved = False
 
@@ -18,9 +15,11 @@ changes_unsaved = False
 
 # transactions = pd.DataFrame(data)
 # transactions['data'] = pd.to_datetime(transactions['date'])
+
+
 def load_transaction():
     while True:
-        file = input("Enter the file name with csv extension: ").strip()
+        file = input("Enter the file name with csv extension:").strip()
         try:
             load_df= pd.read_csv(file)
             if not load_df.columns.equals(Globals.transaction_df.columns):
@@ -31,11 +30,13 @@ def load_transaction():
                 Globals.transaction_df = load_df
                 print(Globals.transaction_df)
                 print("File loaded successfully and data initialized.")
+
             else:
                 # Concatenate only if transaction_df has existing data
                 Globals.transaction_df = pd.concat([Globals.transaction_df, load_df], ignore_index=True)
                 print("File loaded successfully and data concatenated.")
                 print("File loaded successfully.")
+
             break
 
 
@@ -53,21 +54,21 @@ def load_transaction():
 
         break
 
-load_transaction()
+# date range
+# start_date = '2024-10-01'
+# end_date = '2024-10-31'
 
-def view_transactions_by_date_range():
-    # datetime format
-    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'], errors='coerce')
-    min_date = Globals.transaction_df["Date"].min()
-    max_date = Globals.transaction_df["Date"].max()
+def view_transactions_by_date_range(start_date, end_date):
+    filtered_transactions = transactions[(transactions['date'] >= start_date) & (transactions['date'] <= end_date)]
+    print(filtered_transactions)
+    min_date = transactions["Date"].min()
+    max_date = transactions["Date"].max()
 
-    if Globals.transaction_df.empty:
-        print("No data available to filter.")
     while True:
         try:
-            start_date = pd.to_datetime(input("Enter the start date (YYYY-MM-DD): "), format= "%Y-%m-%d")
+            start_date = pd.to_datetime(input("Enter the start date (YYYY-MM-DD): "), format= "%y-%m-%d")
             if start_date < min_date or start_date > max_date:
-                print(f"Invalid input. Please enter a date between {min_date.date()} and {max_date.date()}.")
+                print("Invalid input. Please enter the valid date range.")
                 continue
             else:
                 break
@@ -76,29 +77,14 @@ def view_transactions_by_date_range():
 
     while True:
         try:
-            end_date = pd.to_datetime(input("Enter the end date (YYYY-MM-DD): "), format="%Y-%m-%d")
-            if end_date < start_date or end_date > max_date:
-                print(f"Invalid input. Please enter a date between {start_date.date()} and {max_date.date()}.")
+            end_date = pd.to_datetime(input("Enter the end date (YYYY-MM-DD)"))
+            if end_date < min_date or end_date > max_date:
+                print("Invalid input. Please enter the valid date range.")
                 continue
             else:
                 break
         except ValueError:
-            print("Invalid input. Please enter the date in YYYY-MM-DD format")
-
-    # filter transactions within the specified date range
-    filtered_transactions = Globals.transaction_df[(Globals.transaction_df['Date'] >= start_date) &
-                                                   (Globals.transaction_df['Date'] <= end_date)]
-
-    if not filtered_transactions.empty:
-        print(filtered_transactions.to_string(index=True))
-
-    else:
-        print("No transactions found within the specified date range.")
-
-view_transactions_by_date_range()
-
-
-# print(filtered_transactions)
+            print("Invalid date format. Please enter the date in YYYY-MM-DD format")
 
 # add a transaction
 # with details like date, category, description, and amount
@@ -115,19 +101,18 @@ def add_transaction():
             print("Invalid input. Please enter a valid answer (Y,N).")
             continue
 
-add_transaction()
-
 def get_date():
-    date = get_date
-    while True:
-        try:
-            date_input = pd.to_datetime(input("Enter the date of the transaction (YYYY-MM-DD): "), format="%Y-%m-%d")
-            get_category()
-            return date_input.strftime("%Y-%M-%D")   #back into a string format/consistent format #return formatted date if successful
-        except ValueError:
-            print("Invalid date format. Please enter the date in YYYY-MM-DD.")
+    global transactions
 
-get_date()
+    while True:
+        date_input = input("Enter the date of the transaction (YYYY-MM-DD): ").strip()
+        try:
+            date_obj = datetime.strptime(date_input, "%Y-%M-%D") #ensure the obj is in the right format
+            get_category()
+            return date_obj.strftime("%Y-%M-%D")   #back into a string format/consistent format #return formatted date if successful
+
+        except ValueError:
+            print("Invalid date format. Please enter YYYY-MM-DD")
 
 def get_category():
     while True:
@@ -139,13 +124,10 @@ def get_category():
             print("Invalid input. Please enter a valid category.")
             continue
 
-get_category()
-
 def get_description():
     get_amount()
     return input("Enter a description of the transaction: ")
 
-get_description()
 
 def get_amount():
     while True:
@@ -158,7 +140,6 @@ def get_amount():
                 print("Amount must be positive. Please try again.")
         except ValueError:
             print("Invalid amount. Please enter a numerical value.")
-get_amount()
 
 def get_type():
     type_input = input("Enter a type of transaction (Expense or Income): ").strip().capitalize()
@@ -167,7 +148,6 @@ def get_type():
     else:
         print("Invalid type. Please enter a valid input. (Expense or Income)")
 
-get_type()
 # making a new transaction
 
 def new_transaction(date_obj, category_input, description_input, amount_input, type_input):
@@ -180,7 +160,7 @@ def new_transaction(date_obj, category_input, description_input, amount_input, t
     })
 
 
-    transaction_df = pd.concat([new], ignore_index=True)
+    Global.transaction_df = pd.concat([new], ignore_index=True)
     print("Transaction added successfully.")
 
 
@@ -193,11 +173,3 @@ def create():
     type_input = get_type()
 
     new_transaction(date_obj, category_input, description_input, amount_input, type_input)
-
-def edit_transaction(index, date=None, category=None, description=None, amount=None):
-    while True:
-        print(view_transactions_by_date_range())
-
-    if index not in transactions.index:
-        print("Transaction not found. Please try again.")
-
