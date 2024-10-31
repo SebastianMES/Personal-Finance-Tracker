@@ -63,6 +63,7 @@ def main():
                     CSV_handling.save_transactions()  # save changes if user chooses
                 elif save_user == 'n':
                     print("Exiting without saving.")
+
             print("Exiting the application. Goodbye!")
             break
         else:
