@@ -39,11 +39,11 @@ def main():
         elif request == "1":
             data_anlaysis
         elif request == "2":
-            data_anlaysis
+            data_management.view_transactions_by_date_range()
         elif request == "3":
-            data_management
+            data_management.add_transaction()
         elif request == "4":
-            data_management
+            data_management.edit_transaction()
         elif request == "5":
             data_management
         elif request == "6":
@@ -65,7 +65,8 @@ def main():
                     print("Exiting without saving.")
             print("Exiting the application. Goodbye!")
             break
-
+        else:
+            print("Invalid selection. Please choose a valid option.")
 
 
 
