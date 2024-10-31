@@ -37,4 +37,13 @@ def load_transaction():
         except Exception as e:
             print(f"An unexpected error occurred: {e}")
 
-        break
+
+
+
+def save_transactions():
+    if Globals.transaction_df.empty:
+        print("Personal finance tracker has no transaction. No file saved.\n")
+        return
+    Globals.transaction_df.to_csv('Personal_finance_tracker.csv',index=False)
+    print(f"Task saved to Personal_finance_tracker.csv.\n")
+    Globals.changes_unsaved = False
