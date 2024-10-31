@@ -51,3 +51,6 @@ def top_spending_category():
 
         highest_category = Globals.transction_df.groupby("Category") ["Amount"].max()
         print(f"The highest: {highest_category}")
+
+
+    
