@@ -2,7 +2,7 @@
 # -Analyze Spending by Category: Display total spending for each category.
 # -Calculate Average Monthly Spending: Show average spending per month.
 # -Show Top Spending Category: Identify the category with the highest total spending.
-from unicodedata import category
+
 
 import Globals
 import pandas as pd
@@ -10,12 +10,12 @@ import pandas as pd
 # 1.Analyze Spending by Category:
 
 def analyze_spending_by_category():
-    if Globals.transction_df.empty:
+    if Globals.transaction_df.empty:
         print("There's no transactions to analyze")
 
     else:
         # Creating a variable to group only the amount and category
-        spending_category = Globals.transction_df.groupby("Category") ["Amount"].sum()
+        spending_category = Globals.transaction_df.groupby("Category") ["Amount"].sum()
         print(spending_category)
         # Getting the total
         total_spending = spending_category.sum()
@@ -24,13 +24,13 @@ def analyze_spending_by_category():
 # 2.Calculate Average Monthly Spending:
 
 def calculate_average_monthly():
-    if Globals.transction_df.empty:
+    if Globals.transaction_df.empty:
         print("There's no transactions to analyze")
 
     else:
 
         # changing the format
-        Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'])
+        Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df["Date"],format="%d/%m/%Y")
 
         # selecting the information for each month
         monthly_expenses = Globals.transaction_df.groupby(Globals.transaction_df['Date'].dt.to_period("M"))['Amount'].sum()
@@ -45,9 +45,11 @@ def calculate_average_monthly():
 # 3.Show Top Spending Category:
 def top_spending_category():
 
-    if Globals.transction_df.empty:
+    if Globals.transaction_df.empty:
         print("There's no transactions to analyze")
     else:
 
-        highest_category = Globals.transction_df.groupby("Category") ["Amount"].max()
-        print(f"The highest: {highest_category}")
+        highest_category = Globals.transaction_df.groupby("Category") ["Amount"].sum()
+        top_category= highest_category.idxmax()
+        top_amount= highest_category.max()
+        print(f"The category with the highest spending is: {top_category} with an amount of {top_amount}")
