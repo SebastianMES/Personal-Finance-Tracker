@@ -4,7 +4,6 @@ import pandas as pd
 from datetime import datetime
 import Globals
 
-from numpy.f2py.crackfortran import true_intent_list
 
 #global valuable
 # define dataframe with required columns if needed
@@ -154,6 +153,6 @@ def edit_transaction(index, date=None, category=None, description=None, amount=N
     while True:
         print(view_transactions_by_date_range())
 
-    if index not in transactions.index:
-        print("Transaction not found. Please try again.")
 
+def view_all_transactions():
+    return print(Globals.transaction_df)
