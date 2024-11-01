@@ -33,7 +33,7 @@ def calculate_average_monthly():
         Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df["Date"],format="%d/%m/%Y")
 
         # selecting the information for each month
-        monthly_expenses = Globals.transaction_df.groupby(Globals.transaction_df['Date'].dt.to_period("M"))['Amount'].sum()
+        monthly_expenses = Globals.transaction_df.groupby(Globals.transaction_df['Date'].dt.to_period("M"))['Amount'].mean()
 
         # Total by month
         print("Monthly Expenses")

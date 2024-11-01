@@ -6,22 +6,19 @@ import Globals
 
 #global valuable
 # define dataframe with required columns if needed
-Globals.transaction_df = pd.DataFrame(columns=['Date', 'Category', 'Description', 'Amount', 'Type'])
-# transaction_df = pd.DataFrame(columns=['Date','Category', 'Description', 'Amount','Type'])
-today_date = datetime.today().date()
-changes_unsaved = False
+
 
 # 1. view transactions by date range
 # filter and display transactions within a specified date range.
 
 def view_all_transactions():
-    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'], dayfirst=True, errors='coerce')
-    Globals.transaction_df['Date'] = Globals.transaction_df['Date'].dt.strftime('%Y-%m-%d')
-    return print(Globals.transaction_df)
+    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df["Date"],format="%d/%m/%Y")
+    return print(Globals.transaction_df.to_string(index=True))
 
 def view_transactions_by_date_range():
     # datetime format
-    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'], dayfirst=True, errors='coerce')
+    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df["Date"],format="%d/%m/%Y")
+    print(Globals.transaction_df.to_string(index=True))
     min_date = Globals.transaction_df["Date"].min()
     max_date = Globals.transaction_df["Date"].max()
     if Globals.transaction_df.empty:
@@ -29,25 +26,25 @@ def view_transactions_by_date_range():
         return
     while True:
         try:
-            start_date = pd.to_datetime(input("Enter the start date (YYYY-MM-DD): "), format= "%Y-%m-%d")
+            start_date = pd.to_datetime(input("Enter the start date (DD/MM/YYYY): "), format= "%d/%m/%Y")
             if start_date < min_date or start_date > max_date:
                 print(f"Invalid input. Please enter a date between {min_date.date()} and {max_date.date()}.")
                 continue
             else:
                 break
         except ValueError:
-            print("Invalid input. Please enter the date in YYYY-MM-DD format")
+            print("Invalid input. Please enter the date in DD/MM/YYYY format")
 
     while True:
         try:
-            end_date = pd.to_datetime(input("Enter the end date (YYYY-MM-DD): "), format="%Y-%m-%d")
+            end_date = pd.to_datetime(input("Enter the end date (DD/MM/YYYY): "), format="%d/%m/%Y")
             if end_date < start_date or end_date > max_date:
                 print(f"Invalid input. Please enter a date between {start_date.date()} and {max_date.date()}.")
                 continue
             else:
                 break
         except ValueError:
-            print("Invalid input. Please enter the date in YYYY-MM-DD format")
+            print("Invalid input. Please enter the date in DD/MM/YYYY format")
     # filter transactions within the specified date range
     filtered_transactions = Globals.transaction_df[(Globals.transaction_df['Date'] >= start_date) &
                                                    (Globals.transaction_df['Date'] <= end_date)]
@@ -74,10 +71,10 @@ def get_date():
 
     while True:
         try:
-            date_input = pd.to_datetime(input("Enter the date of the transaction (YYYY-MM-DD): "), format="%Y-%m-%d")
-            return date_input.strftime("%Y-%m-%D")   #back into a string format/consistent format #return formatted date if successful
+            date_input = pd.to_datetime(input("Enter the date of the transaction (DD/MM/YYYY): "), format="%d/%m/%Y")
+            return date_input.strftime("%d/%m/%Y")   #back into a string format/consistent format #return formatted date if successful
         except ValueError:
-            print("Invalid date format. Please enter the date in YYYY-MM-DD.")
+            print("Invalid date format. Please enter the date in DD/MM/YYYY.")
 
 def get_category():
     while True:
@@ -134,13 +131,13 @@ def create():
     Globals.changes_unsaved = True
 
 def edit_transaction():
-    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'], dayfirst=True, errors='coerce')
-    Globals.transaction_df['Date'] = Globals.transaction_df['Date'].dt.strftime('%Y-%m-%d')
+    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df["Date"],format="%d/%m/%Y")
+    Globals.transaction_df['Date'] = Globals.transaction_df['Date'].dt.strftime('%d/%m/%Y')
     if Globals.transaction_df.empty:
         print("No transactions available to edit.")
     else:
         print("Current Transactions: ")
-        print(Globals.transaction_df.to_string(index=True))
+        print(print(Globals.transaction_df.to_string(index=True)))
         while True:
             try:
                 row_index = int(input("Please enter an index number of transaction you want to edit: "))
@@ -153,16 +150,16 @@ def edit_transaction():
                     while True:
                     # Editing Date
                         current_date = Globals.transaction_df.at[row_index, 'Date']
-                        new_date = input("Input the new date (YYYY-MM-DD) or press Enter to keep the current date: ").strip()
+                        new_date = input("Input the new date (DD/MM/YYYY) or press Enter to keep the current date: ").strip()
                         if new_date:
                             try:
                                 # convert new_date to a datetime object
-                                new_date_converted = pd.to_datetime(new_date, format="%Y-%m-%d", errors='raise')
-                                Globals.transaction_df.at[row_index, 'Date'] = new_date_converted.date()
-                                print(f"Date updated successfully to {new_date_converted.date()}.")
+                                new_date_converted = pd.to_datetime(new_date, format="%d/%m/%Y", errors='raise')
+                                Globals.transaction_df.at[row_index, 'Date'] = new_date_converted.strftime("%d/%m/%Y")
+                                print(f"Date updated successfully to {new_date_converted}.")
 
                             except ValueError:
-                                print("Invalid date format. Please input the date in YYYY-MM-DD.")
+                                print("Invalid date format. Please input the date in DD/MM/YYYY.")
                                 continue
                         else:
                             print(f"No new date entered. Keeping the current date: {current_date}.")
@@ -228,7 +225,8 @@ def edit_transaction():
             except ValueError:
                     print("Invalid input. Please enter a numeric index.")
             print()
-            view_all_transactions()
+            print("Updated Transactions:")
+            print(Globals.transaction_df.to_string(index=True))
             Globals.changes_unsaved = True
             break
 
