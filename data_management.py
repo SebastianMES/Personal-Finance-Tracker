@@ -71,7 +71,7 @@ def add_transaction():
             continue
 
 def get_date():
-    date = get_date
+
     while True:
         try:
             date_input = pd.to_datetime(input("Enter the date of the transaction (YYYY-MM-DD): "), format="%Y-%m-%d")
@@ -229,3 +229,22 @@ def edit_transaction():
             print()
             view_all_transactions()
             break
+
+
+def delete_transaction():
+    if Globals.transaction_df.empty:
+        print("There's no transactions to analyze")
+        return
+
+    while True:  # validate the transaction row
+        try:
+            row = int(input("Enter the number of the transaction you want to delete: "))
+            if 0 <= row <= (len(Globals.transaction_df) - 1):
+                break
+            else:
+                print("Enter a valid number of transaction.")
+        except ValueError:
+            print("Enter a valid number of transaction.")
+
+    transactions = Globals.transaction_df.drop(row).reset_index(drop=True)  # print the transaction details
+    print("Transaction deleted successfully!")

@@ -50,5 +50,7 @@ def top_spending_category():
     else:
 
         highest_category = Globals.transaction_df.groupby("Category") ["Amount"].max()
-        print(f"The highest: {highest_category}")
+        top_category = highest_category.idxmax()
+        top_amount = highest_category.max()
+        print(f"The category with the highest spending is: {top_category} with an amount of {top_amount}")
 

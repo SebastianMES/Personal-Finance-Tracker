@@ -32,7 +32,9 @@ def main():
         print("8. Show Top Spending Category")
         print("9. Visualize Monthly Spending Trend")
         print("10. Save Transactions to CSV")
-        print("11. Exit")
+        print("11. Set Category Budget")
+        print("12. View Budget Status")
+        print("13. Exit")
         request = input("Select an action:" ).strip()
         if request == "0":
             CSV_handling.load_transaction()
@@ -45,13 +47,13 @@ def main():
         elif request == "4":
             data_management.edit_transaction()
         elif request == "5":
-            data_management
+            data_management.delete_transaction()
         elif request == "6":
-            data_anlaysis
+            data_anlaysis.analyze_spending_by_category()
         elif request == "7":
-            data_anlaysis
+            data_anlaysis.calculate_average_monthly()
         elif request == "8":
-            data_anlaysis
+            data_anlaysis.calculate_average_monthly()
         elif request == "9":
             visualization.trend_analysis()
         elif request == "10":
