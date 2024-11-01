@@ -8,7 +8,7 @@ def trend_analysis():
         print("Personal finance tracker is empty. Trend can't be defined.")
         return
     Globals.transaction_df["Date"] = pd.to_datetime(Globals.transaction_df["Date"],format="%d/%m/%Y")
-    plot_df = Globals.transaction_df.copy()
+    plot_df = Globals.transaction_df[Globals.transaction_df["Type"] == "Expense"].copy()
     plot_df["Month_Year"] = plot_df["Date"].dt.to_period("M").astype(str)
     monthly_spending = plot_df.groupby("Month_Year")["Amount"].sum().reset_index()
     category_spending = plot_df.groupby("Category")["Amount"].sum().reset_index()

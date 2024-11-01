@@ -53,7 +53,7 @@ def main():
         elif request == "7":
             data_anlaysis.calculate_average_monthly()
         elif request == "8":
-            data_anlaysis.calculate_average_monthly()
+            data_anlaysis.top_spending_category()
         elif request == "9":
             visualization.trend_analysis()
         elif request == "10":
