@@ -16,22 +16,21 @@ The **Personal Finance Tracker App** is a Python application designed to help us
 - **Visualization**: Plot monthly spending trends, category spends and distributions.
 
 ### Requirements
-- Python 3.7+
+- Python 3.7+  
 - Required Libraries: `pandas`, `matplotlib`
 
 ## Setup Instructions
 
 ### In Bash
-1. **Navigate to the Directory**:
+1. **Navigate to the Directory**:  
     cd personal-finance-tracker
-2. **Clone the repository**:
+2. **Clone the repository**:  
     git clone https://github.com/SebastianMES/Personal-Finance-Tracker.git
 3. **Set up a Virtual Environment**:
-    python -m venv .venv
-    source .venv/bin/activate  #For linux or mac
+    source .venv/bin/activate  #For linux or mac  
     .venv\Scripts\activate
 4. **Install the requirements**:
-    pip install -r requirements.txt
+    pip install -r requirements.txt  
 
 ## Usage
 

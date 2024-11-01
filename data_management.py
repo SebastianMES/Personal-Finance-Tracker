@@ -24,9 +24,9 @@ def view_transactions_by_date_range():
     Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'], dayfirst=True, errors='coerce')
     min_date = Globals.transaction_df["Date"].min()
     max_date = Globals.transaction_df["Date"].max()
-
     if Globals.transaction_df.empty:
         print("No data available to filter.")
+        return
     while True:
         try:
             start_date = pd.to_datetime(input("Enter the start date (YYYY-MM-DD): "), format= "%Y-%m-%d")
@@ -131,6 +131,7 @@ def create():
     type_input = get_type()
 
     new_transaction(date_obj, category_input, description_input, amount_input, type_input)
+    Globals.changes_unsaved = True
 
 def edit_transaction():
     Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'], dayfirst=True, errors='coerce')
@@ -228,6 +229,7 @@ def edit_transaction():
                     print("Invalid input. Please enter a numeric index.")
             print()
             view_all_transactions()
+            Globals.changes_unsaved = True
             break
 
 
@@ -247,4 +249,5 @@ def delete_transaction():
             print("Enter a valid number of transaction.")
 
     transactions = Globals.transaction_df.drop(row).reset_index(drop=True)  # print the transaction details
+    Globals.changes_unsaved = True
     print("Transaction deleted successfully!")

@@ -13,13 +13,13 @@ def load_transaction():
             if Globals.transaction_df.empty:
                 # Directly assign load_df if transaction_df is empty
                 Globals.transaction_df = load_df
-                print(Globals.transaction_df)
-                print("File loaded successfully and data initialized.")
+                print(Globals.transaction_df.groupby(Globals.transaction_df["Type"])["Amount"].describe())
+                print("File loaded successfully.")
 
             else:
                 # Concatenate only if transaction_df has existing data
                 Globals.transaction_df = pd.concat([Globals.transaction_df, load_df], ignore_index=True)
-                print("File loaded successfully and data concatenated.")
+                print(Globals.transaction_df.info())
                 print("File loaded successfully.")
 
             break

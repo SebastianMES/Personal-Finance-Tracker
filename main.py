@@ -57,8 +57,15 @@ def main():
         elif request == "9":
             visualization.trend_analysis()
         elif request == "10":
-            CSV_handling.save_transactions()
+            if Globals.changes_unsaved:
+                CSV_handling.save_transactions()
+            else:
+                print("Data has no changes to save")
         elif request == "11":
+            budget_management.set_budget()
+        elif request == "12":
+            budget_management.budget_exceeds()
+        elif request == "13":
             if Globals.changes_unsaved:
                 save_user = input("You have unsaved changes. Would you like to save before exiting? (Y/N): ").strip().lower()
                 if save_user == 'y':
