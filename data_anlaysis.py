@@ -10,12 +10,12 @@ import pandas as pd
 # 1.Analyze Spending by Category:
 
 def analyze_spending_by_category():
-    if Globals.transction_df.empty:
+    if Globals.transaction_df.empty:
         print("There's no transactions to analyze")
 
     else:
         # Creating a variable to group only the amount and category
-        spending_category = Globals.transction_df.groupby("Category") ["Amount"].sum()
+        spending_category = Globals.transaction_df.groupby("Category") ["Amount"].sum()
         print(spending_category)
         # Getting the total
         total_spending = spending_category.sum()
@@ -24,7 +24,7 @@ def analyze_spending_by_category():
 # 2.Calculate Average Monthly Spending:
 
 def calculate_average_monthly():
-    if Globals.transction_df.empty:
+    if Globals.transaction_df.empty:
         print("There's no transactions to analyze")
 
     else:
@@ -45,9 +45,10 @@ def calculate_average_monthly():
 # 3.Show Top Spending Category:
 def top_spending_category():
 
-    if Globals.transction_df.empty:
+    if Globals.transaction_df.empty:
         print("There's no transactions to analyze")
     else:
 
-        highest_category = Globals.transction_df.groupby("Category") ["Amount"].max()
+        highest_category = Globals.transaction_df.groupby("Category") ["Amount"].max()
         print(f"The highest: {highest_category}")
+
