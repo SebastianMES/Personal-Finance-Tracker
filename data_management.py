@@ -71,11 +71,10 @@ def add_transaction():
             continue
 
 def get_date():
-    date = get_date
     while True:
         try:
-            date_input = pd.to_datetime(input("Enter the date of the transaction (YYYY-MM-DD): "), format="%Y-%m-%d")
-            return date_input.strftime("%Y-%m-%D")   #back into a string format/consistent format #return formatted date if successful
+            date_input = pd.to_datetime(input("Enter the date of the transaction (YYYY-MM-DD): "), dayfirst=True, format="%Y-%m-%d")
+            return date_input.strftime("%Y-%m-%d")   #back into a string format/consistent format #return formatted date if successful
         except ValueError:
             print("Invalid date format. Please enter the date in YYYY-MM-DD.")
 
@@ -89,7 +88,13 @@ def get_category():
             continue
 
 def get_description():
-    return input("Enter a description of the transaction: ").strip()
+    while True:
+        description_input = input("Enter a description of the transaction: ").strip()
+        if description_input:
+            return description_input
+        else:
+            print("Invalid input. Please enter a description of the transaction.")
+            continue
 
 def get_amount():
     while True:
@@ -104,7 +109,7 @@ def get_amount():
 
 def get_type():
     while True:
-        type_input = input("Enter a type of transaction (Expense or Income): ").strip().capitalize()
+        type_input = input("Enter a type of transaction (Expense or Income): ").strip()
         if type_input in ["Expense", "Income"]:
             return  type_input
         else:
@@ -112,16 +117,20 @@ def get_type():
 
 # making a new transaction
 def new_transaction(date_obj, category_input, description_input, amount_input, type_input):
+    Globals.transaction_df['Date'] = pd.to_datetime(Globals.transaction_df['Date'], dayfirst=True, errors='coerce')
+    Globals.transaction_df['Date'] = Globals.transaction_df['Date'].dt.strftime('%Y-%m-%d')
+
     new =  pd.DataFrame({
         "Date": [date_obj],
-        "Category": [category_input],
-        "Description": [description_input],
-        "Amount": [amount_input],
-        "Type": [type_input]
+        "Category": [category_input.capitalize()],
+        "Description": [description_input.capitalize()],
+        "Amount": [round(amount_input, 2)],
+        "Type": [type_input.capitalize()]
     })
 
     Globals.transaction_df = pd.concat([Globals.transaction_df, new], ignore_index=True)
-    print("Transaction added successfully.")
+    print("Transaction added successfully.\n")
+    print(Globals.transaction_df)
 
 def create():
     date_obj = get_date()
@@ -143,6 +152,7 @@ def edit_transaction():
         while True:
             try:
                 row_index = int(input("Please enter an index number of transaction you want to edit: "))
+
                 if row_index not in Globals.transaction_df.index:
                     print("Invalid index. Please enter a valid index.")
                     continue
@@ -195,10 +205,10 @@ def edit_transaction():
                         new_amount = input("Input the new amount or press Enter to keep the current amount: ")
                         if new_amount:
                             try:
-                                new_amount_float = float(new_amount)
-                                if new_amount_float <= 0:
+                                new_amount_float = float(new_amount) # to handle non-numeric value
+                                if new_amount_float <= 0: # ensure the number is positive
                                     print("Invalid input. The amount must be a positive number. Please try again.")
-                                    continue  # to avoid proceeding further if amount is invalid
+                                    continue
                                 Globals.transaction_df.at[row_index, 'Amount'] = round(new_amount_float, 2)
                                 print(f"Amount updated successfully to {new_amount_float:.2f}.")
                             except ValueError:
